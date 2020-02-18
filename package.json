@@ -1,0 +1,22 @@
+{
+  "name": "toast-api-wrapper",
+  "version": "1.0.0",
+  "description": "NodeJS wrapper for Toast APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/city-brew-coffee/toast-api-wrapper.git"
+  },
+  "author": "City Brew Coffee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/city-brew-coffee/toast-api-wrapper/issues"
+  },
+  "homepage": "https://github.com/city-brew-coffee/toast-api-wrapper#readme",
+  "dependencies": {
+    "request-promise-native": "^1.0.8"
+  }
+}
