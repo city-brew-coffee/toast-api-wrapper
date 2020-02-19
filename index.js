@@ -1,13 +1,83 @@
 const rp = require('request-promise-native');
 
 
-exports.getEmployees = async (accessToken) => {
+exports.getEmployees = async ({accessToken, restaurantGuid}) => {
     const options = {
         uri: `https://${process.env.toast_hostname}/labor/v1/employees`,
         method: 'GET',
         headers: {
             Authorization: `Bearer ${accessToken}`,
-            'Toast-Restaurant-External-ID': `${process.env.restaurant_external_id}`
+            'Toast-Restaurant-External-ID': `${restaurantGuid}`
+        },
+        json: true
+    }
+
+    console.log(options);
+
+    const response = await rp(options);
+
+    return response;
+};
+
+exports.addEmployee = async ({accessToken, restaurantGuid, employee}) => {
+    const options = {
+        uri: `https://${process.env.toast_hostname}/labor/v1/employees`,
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Toast-Restaurant-External-ID': `${restaurantGuid}`
+        },
+        json: true,
+        body: employee,
+    };
+
+    const response = await rp(options);
+
+    return response;
+}
+
+exports.deleteEmployee = async ({accessToken, restaurantGuid, employeeId}) => {
+    const options = {
+        uri: `https://${process.env.toast_hostname}/labor/v1/employees/${employeeId}`,
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Toast-Restaurant-External-ID': `${restaurantGuid}`
+        },
+        json: true
+    };
+
+    const response = await rp(options);
+
+    return response;
+};
+
+exports.updateEmployee = async ({accessToken, restaurantGuid, employee}) => {
+    const options = {
+        uri: `https://${process.env.toast_hostname}/labor/v1/employees/${employeeId}`,
+        method: 'PATCH',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Toast-Restaurant-External-ID': `${restaurantGuid}`
+        },
+        json: true,
+        body: employee,
+    };
+
+    const response = await rp(options);
+
+    return response;
+};
+
+
+
+exports.getTimeEntries = async ({start, end, accessToken, restaurantGuid}) => {
+    const options = {
+        uri: `https://${process.env.toast_hostname}/labor/v1/timeEntries?startDate=${start}&endDate=${end}`,
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Toast-Restaurant-External-ID': `${restaurantGuid}`
         },
         json: true
     }
@@ -15,39 +85,37 @@ exports.getEmployees = async (accessToken) => {
     const response = await rp(options);
 
     return response;
-},
+};
 
-    exports.getTimeEntries = async (start, end, accessToken) => {
-        const options = {
-            uri: `https://${process.env.toast_hostname}/labor/v1/timeEntries?startDate=${start}&endDate=${end}`,
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-                'Toast-Restaurant-External-ID': `${process.env.restaurant_external_id}`
-            },
-            json: true
-        }
-
-        const response = await rp(options);
-
-        return response;
-    },
-
-    exports.getJobs = async function (accessToken) {
-        const options = {
-            uri: `https://${process.env.toast_hostname}/labor/v1/jobs`,
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-                'Toast-Restaurant-External-ID': `${process.env.restaurant_external_id}`
-            },
-            json: true
-        }
-
-        const response = await rp(options);
-
-        return response;
+exports.getJobs = async function ({accessToken, restaurantGuid}) {
+    const options = {
+        uri: `https://${process.env.toast_hostname}/labor/v1/jobs`,
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Toast-Restaurant-External-ID': `${restaurantGuid}`
+        },
+        json: true
     }
+
+    const response = await rp(options);
+
+    return response;
+};
+
+exports.getResturantsInGroup = async function ({accessToken, managementGroupGuid, restaurantGuid}) {
+    const options = {
+        uri: `https://${process.env.toast_hostname}/restaurants/v1/groups/${managementGroupGuid}/restaurants`,
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Toast-Restaurant-External-ID': `${restaurantGuid}`,
+        },
+        json: true
+    };
+
+    return await rp(options);
+}
 
 
 
@@ -70,4 +138,4 @@ exports.requestNewToken = async () => {
         console.error(e);
         throw new Error(e.message);
     }
-}
+};

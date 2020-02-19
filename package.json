@@ -1,6 +1,6 @@
 {
   "name": "toast-api-wrapper",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "NodeJS wrapper for Toast APIs",
   "main": "index.js",
   "scripts": {
