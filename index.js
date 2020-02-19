@@ -1,16 +1,5 @@
 const rp = require('request-promise-native');
 
-exports.getEmployees = getEmployees;
-exports.addEmployee = addEmployee;
-exports.deleteEmployee = deleteEmployee;
-exports.updateEmployee = updateEmployee;
-exports.getTimeEntries = getTimeEntries;
-exports.getJobs = getJobs;
-exports.getResturantsInGroup = getResturantsInGroup;
-exports.requestNewToken = requestNewToken;
-exports.getAllEmployees = getAllEmployees;
-exports.getAllTimeEntries = getAllTimeEntries;
-
 const getEmployees = async ({accessToken, restaurantGuid}) => {
     const options = {
         uri: `https://${process.env.toast_hostname}/labor/v1/employees`,
@@ -171,3 +160,14 @@ const requestNewToken = async () => {
         throw new Error(e.message);
     }
 };
+
+exports.getEmployees = getEmployees;
+exports.addEmployee = addEmployee;
+exports.deleteEmployee = deleteEmployee;
+exports.updateEmployee = updateEmployee;
+exports.getTimeEntries = getTimeEntries;
+exports.getJobs = getJobs;
+exports.getResturantsInGroup = getResturantsInGroup;
+exports.requestNewToken = requestNewToken;
+exports.getAllEmployees = getAllEmployees;
+exports.getAllTimeEntries = getAllTimeEntries;
