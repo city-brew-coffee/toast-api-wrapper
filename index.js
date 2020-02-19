@@ -1,7 +1,17 @@
 const rp = require('request-promise-native');
 
+exports.getEmployees = getEmployees;
+exports.addEmployee = addEmployee;
+exports.deleteEmployee = deleteEmployee;
+exports.updateEmployee = updateEmployee;
+exports.getTimeEntries = getTimeEntries;
+exports.getJobs = getJobs;
+exports.getResturantsInGroup = getResturantsInGroup;
+exports.requestNewToken = requestNewToken;
+exports.getAllEmployees = getAllEmployees;
+exports.getAllTimeEntries = getAllTimeEntries;
 
-exports.getEmployees = async ({accessToken, restaurantGuid}) => {
+const getEmployees = async ({accessToken, restaurantGuid}) => {
     const options = {
         uri: `https://${process.env.toast_hostname}/labor/v1/employees`,
         method: 'GET',
@@ -19,7 +29,18 @@ exports.getEmployees = async ({accessToken, restaurantGuid}) => {
     return response;
 };
 
-exports.addEmployee = async ({accessToken, restaurantGuid, employee}) => {
+const getAllEmployees = async ({accessToken, managementGroupGuid, restaurantGuid}) => {
+    const restResponse = await getResturantsInGroup(accessToken=accessToken, managementGroupGuid=managementGroupGuid, restaurantGuid=restaurantGuid);
+    const restaurantGuids = restResponse.map((restObj) => restObj.guid);
+
+    const calls = restaurantGuids.map((guid) => getEmployees(accessToken=accessToken, restaurantGuid=guid));    
+    const employeesLists = Promise.all(calls);
+
+    const employees = [].concat.apply([], employeesLists);
+    return employees;
+}
+
+const addEmployee = async ({accessToken, restaurantGuid, employee}) => {
     const options = {
         uri: `https://${process.env.toast_hostname}/labor/v1/employees`,
         method: 'POST',
@@ -36,7 +57,7 @@ exports.addEmployee = async ({accessToken, restaurantGuid, employee}) => {
     return response;
 }
 
-exports.deleteEmployee = async ({accessToken, restaurantGuid, employeeId}) => {
+const deleteEmployee = async ({accessToken, restaurantGuid, employeeId}) => {
     const options = {
         uri: `https://${process.env.toast_hostname}/labor/v1/employees/${employeeId}`,
         method: 'DELETE',
@@ -52,7 +73,7 @@ exports.deleteEmployee = async ({accessToken, restaurantGuid, employeeId}) => {
     return response;
 };
 
-exports.updateEmployee = async ({accessToken, restaurantGuid, employee}) => {
+const updateEmployee = async ({accessToken, restaurantGuid, employee}) => {
     const options = {
         uri: `https://${process.env.toast_hostname}/labor/v1/employees/${employeeId}`,
         method: 'PATCH',
@@ -71,7 +92,7 @@ exports.updateEmployee = async ({accessToken, restaurantGuid, employee}) => {
 
 
 
-exports.getTimeEntries = async ({start, end, accessToken, restaurantGuid}) => {
+const getTimeEntries = async ({start, end, accessToken, restaurantGuid}) => {
     const options = {
         uri: `https://${process.env.toast_hostname}/labor/v1/timeEntries?startDate=${start}&endDate=${end}`,
         method: 'GET',
@@ -87,7 +108,18 @@ exports.getTimeEntries = async ({start, end, accessToken, restaurantGuid}) => {
     return response;
 };
 
-exports.getJobs = async function ({accessToken, restaurantGuid}) {
+const getAllTimeEntries = async ({start, end, accessToken, managementGroupGuid, restaurantGuid}) => {
+    const restResponse = await getResturantsInGroup(accessToken=accessToken, managementGroupGuid=managementGroupGuid, restaurantGuid=restaurantGuid);
+    const restaurantGuids = restResponse.map((restObj) => restObj.guid);
+
+    const calls = restaurantGuids.map((guid) => getTimeEntries(start=start, end=end, accessToken=accessToken, restaurantGuid=guid));    
+    const timeEntryLists = Promise.all(calls);
+
+    const employees = [].concat.apply([], timeEntryLists);
+    return employees;
+}
+
+const getJobs = async function ({accessToken, restaurantGuid}) {
     const options = {
         uri: `https://${process.env.toast_hostname}/labor/v1/jobs`,
         method: 'GET',
@@ -103,7 +135,7 @@ exports.getJobs = async function ({accessToken, restaurantGuid}) {
     return response;
 };
 
-exports.getResturantsInGroup = async function ({accessToken, managementGroupGuid, restaurantGuid}) {
+const getResturantsInGroup = async function ({accessToken, managementGroupGuid, restaurantGuid}) {
     const options = {
         uri: `https://${process.env.toast_hostname}/restaurants/v1/groups/${managementGroupGuid}/restaurants`,
         method: 'GET',
@@ -119,7 +151,7 @@ exports.getResturantsInGroup = async function ({accessToken, managementGroupGuid
 
 
 
-exports.requestNewToken = async () => {
+const requestNewToken = async () => {
     const options = {
         uri: `https://${process.env.toast_hostname}/usermgmt/v1/oauth/token`,
         method: 'POST',
