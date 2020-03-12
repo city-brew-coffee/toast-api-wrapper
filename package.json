@@ -1,8 +1,7 @@
 {
   "name": "toast-api-wrapper",
-  "version": "1.0.5",
+  "version": "1.0.15",
   "description": "NodeJS wrapper for Toast APIs",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +18,11 @@
   "dependencies": {
     "request": "^2.88.2",
     "request-promise-native": "^1.0.8"
-  }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "@types/request-promise-native": "^1.0.17"
+  },
+  "prepublish": "tsc"
 }
