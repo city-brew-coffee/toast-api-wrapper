@@ -1,6 +1,6 @@
 {
   "name": "toast-api-wrapper",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "NodeJS wrapper for Toast APIs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
