@@ -17,7 +17,7 @@ export class Menu {
     image?: string;
     visibility?: Visibility;
     availability?: {alwaysAvailable?: boolean, schedule?: object};
-    menuGroups?: MenuGroup;
+    menuGroups?: MenuGroup[];
 }
 
 export class MenuGroup {
