@@ -1,3 +1,7 @@
+## 1.1.0
+- Bug fixes
+- Added loyalty types
+
 ## 1.0.18
 - Fix bug in Menu class where menu was not an array of MenuGroup
 

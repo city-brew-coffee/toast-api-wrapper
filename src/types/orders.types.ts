@@ -25,7 +25,7 @@ export class Order extends ExternalReference {
     deletedDate?: string;
     deleted?: boolean;
     businessDate?: number;
-    server?: string;
+    server?: ExternalReference;
     pricingFeatures?: 'TAXESV2' | 'TAXESV3';
     approvalStatus?: 'NEEDS_APPROVAL' | 'APPROVED' | 'FUTURE' | 'NOT_APPROVED';
     device?: Device;

@@ -1,10 +1,10 @@
-const rp = require('request-promise-native');
 import { FunctionParams } from '../types/toast.types';
-import { Order } from '../types/orders.types';
+import { RestaurantGuid, RestaurantInfo } from '../types/restaurants.types';
+const rp = require('request-promise-native');
 
-export async function getOrders(params: FunctionParams, start: string, end: string) : Promise<string[]> {
+export async function getRestaurantsInGroup(params: FunctionParams) : Promise<RestaurantGuid[]> {
     const options = {
-        uri: `https://${params.toastHostname}/orders/v2/orders?startDate=${start}&endDate=${end}`,
+        uri: `https://${params.toastHostname}/restaurants/v1/groups/${params.managmentGroupGuid}/restaurants`,
         method: 'GET',
         headers: {
             Authorization: `Bearer ${params.accessToken}`,
@@ -18,9 +18,9 @@ export async function getOrders(params: FunctionParams, start: string, end: stri
     return response;
 }
 
-export async function getOrderDetails(params: FunctionParams, orderGuid: string) : Promise<Order> {
+export async function getRestaurantInformation(params: FunctionParams) : Promise<RestaurantInfo> {
     const options = {
-        uri: `https://${params.toastHostname}/orders/v2/orders/${orderGuid}`,
+        uri: `https://${params.toastHostname}/restaurants/v1/restaurants/${params.restaurantGuid}`,
         method: 'GET',
         headers: {
             Authorization: `Bearer ${params.accessToken}`,
@@ -33,4 +33,3 @@ export async function getOrderDetails(params: FunctionParams, orderGuid: string)
 
     return response;
 }
-

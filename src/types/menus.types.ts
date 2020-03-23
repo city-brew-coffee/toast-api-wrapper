@@ -3,9 +3,9 @@ export class Restaurant {
     lastUpdated?: string;
     restaurantTimeZone?: string;
     menus?: Menu[];
-    modifierGroupReferences?: { string: ModiferGroup };
-    modifierOptionReferences? : { string: ModifierOption };
-    preModifierGroupReferences? : { string: PreModifierGroup }
+    modifierGroupReferences?: { [index:string]: ModiferGroup };
+    modifierOptionReferences? : { [index:string]: ModifierOption };
+    preModifierGroupReferences? : { [index:string]: PreModifierGroup }
 }
 
 export class Menu {
@@ -40,7 +40,7 @@ export class MenuItem {
     visibility?: Visibility;
     price?: number;
     pricingStrategy?: 'BASE_PRICE' | 'MENU_SPECIFIC_PRICE' | 'TIME_SPECIFIC_PRICE' | 'SIZE_PRICE' | 'OPEN_PRICE';
-    pricingRules?: PricingRule[];
+    pricingRules?: PricingRules;
     isDiscountable?: boolean;
     salesCategory?: SalesCategory;
     taxInfo?: string[];
@@ -60,7 +60,7 @@ export class ModiferGroup {
     masterId?: number;
     visibility?: Visibility;
     pricingStrategy?: 'NONE' | 'SEQUENCE_PRICE' | 'SIZE_PRICE' | 'SIZE_SEQUENCE_PRICE';
-    pricingRules?: PricingRule[];
+    pricingRules?: PricingRules;
     defaultOptionsChargePrice?: 'YES' | 'NO';
     defaultOptionsSubstitutionPricing?: 'YES' | 'NO';
     minSelections?: number;
@@ -81,7 +81,7 @@ export class ModifierOption {
     visibility?: Visibility;
     price?: number;
     pricingStrategy?: 'GROUP_PRICE' | 'MENU_SPECIFIC_PRICE' |'TIME_SPECIFIC PRICE' | 'BASE_PRICE' | 'SIZE_PRICE';
-    pricingRules?: PricingRule[];
+    pricingRules?: PricingRules;
     salesCategory?: SalesCategory;
     taxInfo?: string[]
     modifierOptionTaxInfo?: ModifierOptionTaxInfo;
@@ -115,7 +115,7 @@ export class MenuMetadata {
     lastUpdated?: string;
 }
 
-export class PricingRule {
+export class PricingRules {
     timeSpecificPricingRules?: TimeSpecificPrice;
     sizeSpecificPricingGuid?: string;
     sizeSequencePricingRules?: SizeSequencePricingRule;
