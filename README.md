@@ -5,6 +5,7 @@ Wraps a few Toast REST API endpoints for usage in NodeJS. It was built primarily
 ## Features
 - Written fully in Typescript and provides type definitions for all objects
 - Very simple to use - no API clients to create
+- Low overhead - uses node fetch for HTTP requests
 
 ## Usage
 If using typescript:

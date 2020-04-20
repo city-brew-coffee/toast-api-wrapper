@@ -1,10 +1,8 @@
-
 import { FunctionParams, ToastError } from '../types/toast.types';
-import { Order } from '../types/orders.types';
-const fetch = require('node-fetch');
+import { Deposit, CashEntry } from '../types/cash-management.types';
 
 
-export async function getOrders(params: FunctionParams, start: string, end: string): Promise<string[]> {
+export async function getDeposits(params: FunctionParams, businessDate?: string) : Promise<Deposit[]> {
     const options = {
         method: 'GET',
         headers: {
@@ -12,21 +10,20 @@ export async function getOrders(params: FunctionParams, start: string, end: stri
             'Toast-Restaurant-External-ID': `${params.restaurantGuid}`
         },
     }
-
+    
     try {
-        const response = await fetch(`https://${params.toastHostname}/orders/v2/orders?startDate=${start}&endDate=${end}`, options);
+        const response = await fetch(`https://${params.toastHostname}/cashmgmt/v1/deposits?businessDate=${businessDate}`, options);
         return response.json();
     } catch (e) {
         throw new ToastError({
             message: e.message,
-            endpoint: 'get orders',
-            path: '/orders/v2/orders'
+            endpoint: 'get deposits',
+            path: '/cashmgmt/v1/discounts'
         });
     }
-
 }
 
-export async function getOrderDetails(params: FunctionParams, orderGuid: string): Promise<Order> {
+export async function getCashEntries(params: FunctionParams, businessDate?: string) : Promise<CashEntry[]> {
     const options = {
         method: 'GET',
         headers: {
@@ -34,17 +31,15 @@ export async function getOrderDetails(params: FunctionParams, orderGuid: string)
             'Toast-Restaurant-External-ID': `${params.restaurantGuid}`
         },
     }
-
+    
     try {
-        const response = await fetch(`https://${params.toastHostname}/orders/v2/orders/${orderGuid}`, options);
-
+        const response = await fetch(`https://${params.toastHostname}/cashmgmt/v1/entries?businessDate=${businessDate}`, options);
         return response.json();
     } catch (e) {
         throw new ToastError({
             message: e.message,
-            endpoint: 'get order details',
-            path: '/orders/v2/orders/{orderGuid}'
+            endpoint: 'get cash entries',
+            path: '/cashmgmt/v1/entries'
         });
     }
 }
-

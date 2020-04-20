@@ -1,35 +1,46 @@
-import { FunctionParams } from '../types/toast.types';
+import { FunctionParams, ToastError } from '../types/toast.types';
 import { RestaurantGuid, RestaurantInfo } from '../types/restaurants.types';
-const rp = require('request-promise-native');
+const fetch = require('node-fetch');
 
 export async function getRestaurantsInGroup(params: FunctionParams) : Promise<RestaurantGuid[]> {
     const options = {
-        uri: `https://${params.toastHostname}/restaurants/v1/groups/${params.managmentGroupGuid}/restaurants`,
         method: 'GET',
         headers: {
             Authorization: `Bearer ${params.accessToken}`,
             'Toast-Restaurant-External-ID': `${params.restaurantGuid}`
         },
-        json: true
     }
 
-    const response = await rp(options);
-
-    return response;
+    try {
+        const response = await fetch(`https://${params.toastHostname}/restaurants/v1/groups/${params.managmentGroupGuid}/restaurants`, options);
+        return response.json();
+    } catch (e) {
+        throw new ToastError({
+            message: e.message,
+            endpoint: 'get restaurants in group',
+            path: '/restaurants/v1/groups/{managmentGroupGuid}/restaurants'
+        });
+    }
 }
 
 export async function getRestaurantInformation(params: FunctionParams) : Promise<RestaurantInfo> {
     const options = {
-        uri: `https://${params.toastHostname}/restaurants/v1/restaurants/${params.restaurantGuid}`,
         method: 'GET',
         headers: {
             Authorization: `Bearer ${params.accessToken}`,
             'Toast-Restaurant-External-ID': `${params.restaurantGuid}`
         },
-        json: true
     }
 
-    const response = await rp(options);
+    try {
+        const response = await fetch(`https://${params.toastHostname}/restaurants/v1/restaurants/${params.restaurantGuid}`, options);
+        return response.json();
+    } catch (e) {
+        throw new ToastError({
+            message: e.message,
+            endpoint: 'get restaurant information',
+            path: '/restaurants/v1/restaurants/{restaurantGuid}'
+        });
+    }
 
-    return response;
 }

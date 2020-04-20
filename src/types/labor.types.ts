@@ -1,6 +1,6 @@
-import { ExternalReference } from "./toast.types";
+import { ExternalReference, ToastReference } from './toast.types';
 
-export declare class Employee extends ExternalReference{
+export interface Employee extends ExternalReference{
     createdDate?: string;
     modifiedDate?: string;
     deletedDate?: string;
@@ -15,7 +15,63 @@ export declare class Employee extends ExternalReference{
     wageOverrides?: JobWageOverride[];
 }
 
-export declare class JobWageOverride {
+export interface JobWageOverride {
     wage?: number;
-    jobReference?: ExternalReference[];
-} 
+    jobReference?: ExternalReference;
+}
+
+export interface TimeEntry extends ExternalReference{
+    createdDate?: string;
+    modifiedDate?: string;
+    deletedDate?: string;
+    deleted?: boolean;
+    jobReference?: ExternalReference;
+    employeeReference?: ExternalReference;
+    shiftReference?: ExternalReference;
+    inDate?: string;
+    outDate?: string;
+    businessDate?: string;
+    regularHours?: number;
+    overtimeHours?: number;
+    hourlyWage?: number;
+    breaks?: TimeEntryBreak[];
+    declaredCashTips?: number;
+    nonCashTips?: number;
+    cashGratuityServiceCharges?: number;
+    nonCashGratuityServiceCharges?: number;
+    tipsWithheld?: number;
+    nonCashSales?: number;
+    cashSales?: number;
+}
+
+export interface TimeEntryBreak {
+    breakType?: ToastReference;
+    paid?: boolean;
+    inDate?: string;
+    outDate?: string;
+    missed?: boolean;
+    auditResponse?: boolean;
+}
+
+export interface Shift extends ExternalReference{
+    createdDate?: string;
+    modifiedDate?: string;
+    deletedDate?: string;
+    deleted?: boolean;
+    jobReference?: ExternalReference;
+    employeeReference?: ExternalReference;
+    inDate?: string;
+    outDate?: string;
+}
+
+export interface Job extends ExternalReference {
+    createdDate?: string;
+    modifiedDate?: string;
+    deletedDate?: string;
+    title?: string;
+    deleted?: boolean;
+    wageFrequency?: 'HOURLY' | 'SALARY';
+    defaultWage?: number;
+    tipped?: boolean;
+    code?: string;
+}

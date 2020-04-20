@@ -63,7 +63,7 @@ export interface Offer {
 
 export interface ExpirationData {
     date?: string;
-    quantity?: string;
+    quantity?: number;
 }
 
 export interface TransactionInformationReverse {

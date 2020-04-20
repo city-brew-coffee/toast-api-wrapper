@@ -1,3 +1,16 @@
+## 1.3.3
+- Added GET break types in config API
+- change get time entires to use modified date
+
+## 1.3.2
+- Added parts of the config API
+
+## 1.3.0
+- Added parts of labor API
+
+## 1.2.0
+- Swapped out request for node-fetch for HTTP requests as request is deprecated
+
 ## 1.1.0
 - Bug fixes
 - Added loyalty types
