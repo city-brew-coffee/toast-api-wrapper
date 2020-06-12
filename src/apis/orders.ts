@@ -48,3 +48,25 @@ export async function getOrderDetails(params: FunctionParams, orderGuid: string)
     }
 }
 
+export async function addOrder(params: FunctionParams, order: Order): Promise<Order> {
+    const options = {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${params.accessToken}`,
+            'Toast-Restaurant-External-ID': `${params.restaurantGuid}`
+        },
+        body: JSON.stringify(order),
+    }
+
+
+    try {
+        const response = await fetch(`https://${params.toastHostname}/orders/v2/orders`, options);
+        return response.json();
+    } catch (e) {
+        throw new ToastError({
+            message: e.message,
+            endpoint: 'add orders',
+            path: '/orders/v2/orders'
+        });
+    }
+}

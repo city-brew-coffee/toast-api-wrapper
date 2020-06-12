@@ -29,7 +29,8 @@ export async function createEmployee(params: FunctionParams, employee: Employee)
         method: 'POST',
         headers: {
             Authorization: `Bearer ${params.accessToken}`,
-            'Toast-Restaurant-External-ID': `${params.restaurantGuid}`
+            'Toast-Restaurant-External-ID': `${params.restaurantGuid}`,
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(employee),
     }
@@ -72,7 +73,8 @@ export async function replaceEmployeeJobs(params: FunctionParams, employeeId: st
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${params.accessToken}`,
-            'Toast-Restaurant-External-ID': `${params.restaurantGuid}`
+            'Toast-Restaurant-External-ID': `${params.restaurantGuid}`,
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(jobIds),
     }
@@ -94,7 +96,8 @@ export async function replaceEmployeeWageOverrides(params: FunctionParams, emplo
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${params.accessToken}`,
-            'Toast-Restaurant-External-ID': `${params.restaurantGuid}`
+            'Toast-Restaurant-External-ID': `${params.restaurantGuid}`,
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(wageOverrides),
     }

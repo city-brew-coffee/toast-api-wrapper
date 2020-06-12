@@ -1,3 +1,9 @@
+## 1.3.8
+- Added get alternate payment types method
+
+## 1.3.5
+- Change token retrieval to use x-www-url-encoded request
+
 ## 1.3.3
 - Added GET break types in config API
 - change get time entires to use modified date

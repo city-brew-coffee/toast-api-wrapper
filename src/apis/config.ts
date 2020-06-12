@@ -1,5 +1,5 @@
 import { FunctionParams, ToastError } from '../types/toast.types';
-import { Discount, RevenueCenter, DiningOption, BreakType } from '../types/config.types';
+import { Discount, RevenueCenter, DiningOption, BreakType, AlternatePaymentType} from '../types/config.types';
 const fetch = require('node-fetch');
 
 
@@ -83,6 +83,27 @@ export async function getBreakTypes(params: FunctionParams, pageSize?: number) :
             message: e.message,
             endpoint: 'get break tyes',
             path: '/config/v2/breakTypes'
+        });
+    }
+}
+
+export async function getAlternatePaymentTypes(params: FunctionParams, pageSize?: number) : Promise<AlternatePaymentType[]> {
+    const options = {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${params.accessToken}`,
+            'Toast-Restaurant-External-ID': `${params.restaurantGuid}`
+        },
+    }
+    
+    try {
+        const response = await fetch(`https://${params.toastHostname}/config/v2/alternatePaymentTypes?pageSize=${pageSize}`, options);
+        return response.json();
+    } catch (e) {
+        throw new ToastError({
+            message: e.message,
+            endpoint: 'get alternate payment types',
+            path: '/config/v2/alternatePaymentTypes'
         });
     }
 }
