@@ -28,8 +28,9 @@ export interface Order extends ExternalReference {
     server?: ExternalReference;
     pricingFeatures?: 'TAXESV2' | 'TAXESV3';
     approvalStatus?: 'NEEDS_APPROVAL' | 'APPROVED' | 'FUTURE' | 'NOT_APPROVED';
-    device?: Device;
+    createdDevice?: Device;
     lastModifiedDevice?: Device;
+    createdDate?: string;
     curbsidePickupInfo?: CurbsidePickupInfo;
 }
 
@@ -58,6 +59,7 @@ export interface Check extends ExternalReference {
     paidDate?: string;
     createdDevice?: Device;
     lastModifiedDevice?: Device;
+    createdDate?: string;
 }
 
 export interface DeliveryInfo {

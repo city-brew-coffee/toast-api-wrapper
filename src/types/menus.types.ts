@@ -169,4 +169,4 @@ export interface ModifierOptionTaxInfo {
     overrideItemTaxRates?: boolean;
 }
 
-export type Visibility = ('POS' | 'KIOSK' | 'GRUBHUB' | 'TOAST_ONLINE_ORDERING')[]
+export type Visibility = ('POS' | 'KIOSK' | 'GRUBHUB' | 'TOAST_ONLINE_ORDERING' | 'ORDERING_PARTNERS')[]
