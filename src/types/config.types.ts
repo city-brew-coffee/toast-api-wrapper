@@ -20,6 +20,7 @@ export interface RevenueCenter extends ToastReference {
 export interface DiningOption extends ExternalReference {
     name?: string;
     behavior?: 'DINE_IN' | 'TAKE_OUT' | 'DELIVERY';
+    curbside?: boolean;
 }
 
 export interface CashDrawer extends ToastReference {
