@@ -1,4 +1,4 @@
-import { Check, AppliedDiscount } from './orders.types';
+import { Check } from './orders.types';
 export interface AccountInfo {
     identifier?: string;
     firstName?: string;
@@ -16,7 +16,7 @@ export interface AccountSearchCriteria {
 }
 
 export interface LoyaltyTransaction {
-    toastTransactionType: 'LOYALTY_INQUIRE' | 'LOYALTY_SEARCH' | 'LOYALTY_REDEEM' | 'LOYALTY_ACCRUE' | 'LOYALTY_REVERSE' | 'LOYALTY_TRANSFER';
+    toastTransactionType: LoyaltyTransactionType;
     searchTransactionInformation: TransactionInformationSearch;
     checkTransactionInformation: TransactionInformationCheck;
     reverseTransactionInformation: TransactionInformationReverse;
@@ -54,7 +54,7 @@ export interface Offer {
     identifier: string;
     name: string;
     applicable: boolean;
-    selectionType: 'CHECK' | 'ITEM' | 'MULTI_ITEM';
+    selectionType: OfferSelectionType;
     itemApplication?: ItemRedemptionInfo[];
     amount: number;
     quantity: number;
@@ -78,7 +78,7 @@ export interface TransactionInformationTransfer {
 }
 
 export interface LoyaltyTransactionResponse {
-    transactionStatus: 'ACCEPT' | 'ERROR_INVALID_TOAST_TRANSACTION_TYPE' | 'ERROR_ACCOUNT_INVALID' | 'ERROR_INVALID_INPUT_PROPERTIES' | 'ERROR_TRANSACTION_DOES_NOT_EXIST' | 'ERROR_INVALID_TOKEN' | 'ERROR_TRANSACTION_CANNOT_BE_REVERSED' | 'ERROR_INVALID_RESTAURANT' | 'ERROR_INVALID_TRANSFER';
+    transactionStatus: LoyaltyTransactionStatus;
     searchResponse?: ResponseSeach;
     checkResponse?: ResponseCheck;
     transferResponse?: ResponseTransfer;
@@ -104,3 +104,7 @@ export interface RejectedRedemption {
 export interface ResponseTransfer {
     loyaltyIdentifier?: string;
 }
+
+export type LoyaltyTransactionType = 'LOYALTY_INQUIRE' | 'LOYALTY_SEARCH' | 'LOYALTY_REDEEM' | 'LOYALTY_ACCRUE' | 'LOYALTY_REVERSE' | 'LOYALTY_TRANSFER';
+export type OfferSelectionType = 'CHECK' | 'ITEM' | 'MULTI_ITEM';
+export type LoyaltyTransactionStatus = 'ACCEPT' | 'ERROR_INVALID_TOAST_TRANSACTION_TYPE' | 'ERROR_ACCOUNT_INVALID' | 'ERROR_INVALID_INPUT_PROPERTIES' | 'ERROR_TRANSACTION_DOES_NOT_EXIST' | 'ERROR_INVALID_TOKEN' | 'ERROR_TRANSACTION_CANNOT_BE_REVERSED' | 'ERROR_INVALID_RESTAURANT' | 'ERROR_INVALID_TRANSFER';
