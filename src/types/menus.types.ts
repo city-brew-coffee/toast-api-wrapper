@@ -1,4 +1,4 @@
-export class Restaurant {
+export interface Restaurant {
     restaurantGuid?: string;
     lastUpdated?: string;
     restaurantTimeZone?: string;
@@ -8,7 +8,7 @@ export class Restaurant {
     preModifierGroupReferences? : { [index:string]: PreModifierGroup }
 }
 
-export class Menu {
+export interface Menu {
     name?: string;
     guid?: string;
     masterId?: number;
@@ -20,7 +20,7 @@ export class Menu {
     menuGroups?: MenuGroup[];
 }
 
-export class MenuGroup {
+export interface MenuGroup {
     name?: string;
     guid?: string;
     masterId?: number;
@@ -32,7 +32,7 @@ export class MenuGroup {
     menuItems?: MenuItem[];
 }
 
-export class MenuItem {
+export interface MenuItem {
     name?: string;
     guid?: string;
     masterId?: number;
@@ -53,7 +53,7 @@ export class MenuItem {
     modifierGroupReferences?: number[];
 }
 
-export class ModiferGroup {
+export interface ModiferGroup {
     name?: string;
     guid?: string;
     referenceId?: number;
@@ -71,7 +71,7 @@ export class ModiferGroup {
     modifierOptionReferences?: number[];
 }
 
-export class ModifierOption {
+export interface ModifierOption {
     referenceId?: number;
     name?: string;
     guid?: string;
@@ -96,13 +96,13 @@ export class ModifierOption {
     modifierGroupReferences?: number[];
 }
 
-export class PreModifierGroup {
+export interface PreModifierGroup {
     name?: string;
     guid?: string;
     preModifiers?: PreModifier[];
 }
 
-export class PreModifier {
+export interface PreModifier {
     name?: string;
     guid?: string;
     fixedPrice?: number;
@@ -110,61 +110,61 @@ export class PreModifier {
     displayMode?: 'PREFIX' | 'SUFFIX';
 }
 
-export class MenuMetadata {
+export interface MenuMetadata {
     restaurantGuid?: string;
     lastUpdated?: string;
 }
 
-export class PricingRules {
+export interface PricingRules {
     timeSpecificPricingRules?: TimeSpecificPrice;
     sizeSpecificPricingGuid?: string;
     sizeSequencePricingRules?: SizeSequencePricingRule;
 }
 
-export class TimeSpecificPrice {
+export interface TimeSpecificPrice {
     timeSpecificPrice?: number;
     basePrice?: number;
     schedule?: Schedule[];
 }
 
-export class Schedule {
+export interface Schedule {
     days?: ('SUNDAY' | 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY')[];
     timeRanges?: TimeRange[];
 }
 
-export class TimeRange {
+export interface TimeRange {
     start?: string;
     end?: string;
 }
 
-export class SizeSequencePricingRule {
+export interface SizeSequencePricingRule {
     sizeName?: string;
     sizeGuid?: string;
     sequencePrices?: SequencePrice[]; 
 }
 
-export class SequencePrice {
+export interface SequencePrice {
     sequence?: number;
     price?: number;
 }
 
-export class SalesCategory {
+export interface SalesCategory {
     name?: string;
     guid?: string;
 }
 
-export class Portion {
+export interface Portion {
     name?: string;
     guid?: string;
     modifierGroupReferences?: number[];
 }
 
-export class ItemTag {
+export interface ItemTag {
     name?: string;
     guid?: string;
 }
 
-export class ModifierOptionTaxInfo {
+export interface ModifierOptionTaxInfo {
     taxRateGuids?: string[];
     overrideItemTaxRates?: boolean;
 }

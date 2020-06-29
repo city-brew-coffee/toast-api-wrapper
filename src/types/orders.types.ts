@@ -1,7 +1,7 @@
 import { ExternalReference, ToastReference } from './toast.types';
 
 
-export class Order extends ExternalReference {
+export interface Order extends ExternalReference {
     openedDate?: string;
     modifiedDate?: string;
     promisedDate?: string;
@@ -32,7 +32,7 @@ export class Order extends ExternalReference {
     lastModifiedDevice?: Device;
 }
 
-export class Check extends ExternalReference {
+export interface Check extends ExternalReference {
     openedDate?: string;
     closedDate?: string;
     modifiedDate?: string;
@@ -59,7 +59,7 @@ export class Check extends ExternalReference {
     lastModifiedDevice?: Device;
 }
 
-export class DeliveryInfo {
+export interface DeliveryInfo {
     address1?: string;
     address2?: string;
     city?: string;
@@ -73,18 +73,18 @@ export class DeliveryInfo {
     deliveryEmployee?: ExternalReference;
 }
 
-export class Device {
+export interface Device {
     id?: string;
 }
 
-export class Customer {
+export interface Customer {
     firstName?: string;
     lastName?: string;
     phone?: string;
     email?: string;
 }
 
-export class Selection extends ExternalReference {
+export interface Selection extends ExternalReference {
     item?: ExternalReference;
     itemGroup?: ExternalReference;
     optionGroup?: ExternalReference;
@@ -114,7 +114,7 @@ export class Selection extends ExternalReference {
     openPriceAmount?: number;
 }
 
-export class AppliedLoyaltyInfo extends ToastReference {
+export interface AppliedLoyaltyInfo extends ToastReference {
     loyaltyIdentifier?: string;
     maskedLoyaltyIdentifier?: string;
     vendor?: 'TOAST' | 'PUNCHH' | 'PUNCHH2' | 'PAYTRONIX' | 'APPFRONT' | 'INTEGRATION';
@@ -122,7 +122,7 @@ export class AppliedLoyaltyInfo extends ToastReference {
     accrualText?: string;
 }
 
-export class AppliedServiceCharge extends ExternalReference {
+export interface AppliedServiceCharge extends ExternalReference {
     chargeAmount?: number;
     serviceCharge?: ExternalReference;
     chargeType?: 'FIXED' | 'PERCENT' | 'OPEN';
@@ -134,7 +134,7 @@ export class AppliedServiceCharge extends ExternalReference {
     serviceChargeCalculation?: 'PRE_DISCOUNT' | 'POST_DISCOUNT';
 }
 
-export class Payment extends ExternalReference {
+export interface Payment extends ExternalReference {
     paidDate?: string;
     paidBusinessDate?: string;
     type?: 'CASH' | 'CREDIT' | 'GIFTCARD' | 'HOUSE_ACCOUNT' | 'REWARDCARD' | 'LEVELUP' | 'OTHER' | 'UNDETERMINED';
@@ -158,14 +158,14 @@ export class Payment extends ExternalReference {
     cardPaymentId?: string;
 }
 
-export class Refund {
+export interface Refund {
     refundAmount?: number;
     tipRefundAmount?: number;
     refundDate?: string;
     refundBusinessDate?: string;
 }
 
-export class AppliedDiscount extends ExternalReference {
+export interface AppliedDiscount extends ExternalReference {
     name?: string;
     discountAmount?: number;
     nonTaxDiscountAmount?: number;
@@ -178,17 +178,17 @@ export class AppliedDiscount extends ExternalReference {
     appliedPromoCode?: string;
 }
 
-export class AppliedDiscountTrigger {
+export interface AppliedDiscountTrigger {
     selection?: ExternalReference;
     quantity?: number;
 }
 
-export class LoyaltyDetails {
+export interface LoyaltyDetails {
     referenceId?: string;
     vendor?: 'TOAST' | 'PUNCHH' | 'PUNCHH2' | 'PAYTRONIX' | 'APPFRONT' | 'INTEGRATION';
 }
 
-export class AppliedTaxRate extends ToastReference {
+export interface AppliedTaxRate extends ToastReference {
     entityType?: string;
     taxRate?: ToastReference;
     name?: string;
@@ -197,7 +197,7 @@ export class AppliedTaxRate extends ToastReference {
     type?: 'PERCENT' | 'FIXED' | 'NONE' | 'TABLE';
 }
 
-export class VoidInformation {
+export interface VoidInformation {
     voidUser?: ExternalReference;
     voidApprover?: ExternalReference;
     voidDate?: string;

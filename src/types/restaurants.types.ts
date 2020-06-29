@@ -1,9 +1,9 @@
 
-export class RestaurantGuid {
+export interface RestaurantGuid {
     guid?: string;
 }
 
-export class RestaurantInfo {
+export interface RestaurantInfo {
     guid?: string;
     general?: GeneralRestaurantInfo;
     urls?: RestaurantUrls;
@@ -14,7 +14,7 @@ export class RestaurantInfo {
     prepTimes?: RestaurantPrepTimes;
 }
 
-export class GeneralRestaurantInfo {
+export interface GeneralRestaurantInfo {
     name?: string;
     locationName?: string;
     locationCode?: string;
@@ -24,7 +24,7 @@ export class GeneralRestaurantInfo {
     managementGroupGuid?: string;
 }
 
-export class RestaurantUrls {
+export interface RestaurantUrls {
     website?: string;
     facebook?: string;
     twitter?: string;
@@ -33,7 +33,7 @@ export class RestaurantUrls {
     checkGiftCard?: string;
 }
 
-export class RestaurantLocation {
+export interface RestaurantLocation {
     address1?: string;
     address2?: string;
     city?: string;
@@ -45,19 +45,19 @@ export class RestaurantLocation {
     longitude?: number;
 }
 
-export class RestaurantSchedules {
+export interface RestaurantSchedules {
     daySchedules?: {[ref:string]: DaySchedule};
     weekSchedule?: WeekSchedule;
 }
 
-export class DaySchedule {
+export interface DaySchedule {
     scheduleName?: string;
     services?: Service[];
     openTime?: string;
     closeTime?: string;
 }
 
-export class WeekSchedule {
+export interface WeekSchedule {
     monday?: string;
     tuesday?: string;
     wednesday?: string;
@@ -67,24 +67,24 @@ export class WeekSchedule {
     sunday?: string;
 }
 
-export class Service {
+export interface Service {
     name?: string;
     hours?: Hours;
     overnight?: boolean;
 }
 
-export class Hours {
+export interface Hours {
     startTime?: string;
     endTime?: string;
 }
 
-export class RestaurantDelivery {
+export interface RestaurantDelivery {
     enabled?: boolean;
     minimum?: number;
     area?: string;
 }
 
-export class RestaurantOnlineOrdering {
+export interface RestaurantOnlineOrdering {
     enabled?: boolean;
     scheduling?: boolean;
     specialRequests?: boolean;
@@ -92,26 +92,26 @@ export class RestaurantOnlineOrdering {
     paymentOptions?: PaymentOptions;
 }
 
-export class PaymentOptions {
+export interface PaymentOptions {
     delivery?: DeliveryPaymentOptions;
     takeout?: TakeoutPaymentOptions;
     ccTip?: boolean;
 }
 
-export class DeliveryPaymentOptions {
+export interface DeliveryPaymentOptions {
     cash?: boolean;
     ccSameDay?: boolean;
     ccFuture?: boolean;
 }
 
-export class TakeoutPaymentOptions {
+export interface TakeoutPaymentOptions {
     cash?: boolean;
     ccSameDay?: boolean;
     ccFuture?: boolean;
     ccInStore?: boolean;
 }
 
-export class RestaurantPrepTimes {
+export interface RestaurantPrepTimes {
     deliveryPrepTime?: number;
     deliveryTimeAfterOpen?: number;
     deliveryTimeBeforeClose?: number;

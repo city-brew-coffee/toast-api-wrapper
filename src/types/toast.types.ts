@@ -1,9 +1,9 @@
-export class ToastReference {
+export interface ToastReference {
     guid?: string;
     entityType?: string;
 }
 
-export class ExternalReference extends ToastReference {
+export interface ExternalReference extends ToastReference {
     externalId?: string;
 }
 
