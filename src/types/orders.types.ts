@@ -204,3 +204,18 @@ export interface VoidInformation {
     voidBusinessDate?: number;
     voidReason?: ExternalReference;
 }
+
+export interface ApplicableDiscountsRequest {
+    order: Order,
+    promoCode?: string,
+}
+
+export interface ApplicableDiscount {
+    discount: ToastReference,
+    applicableChecks?: ExternalReference[],
+    applicableSelections?: ExternalReference[]
+}
+
+export interface OrderResponse {
+    orders: Order[],
+}
