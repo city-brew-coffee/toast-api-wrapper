@@ -7,6 +7,7 @@ export * from './types/config.types'
 export * from './types/loyalty.types'
 export * from './types/labor.types';
 export * from './types/cash-management.types';
+export * from './types/gift-card.types';
 
 export * from './apis/auth';
 export * from './apis/orders';

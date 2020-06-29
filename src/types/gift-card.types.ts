@@ -3,7 +3,7 @@ export interface GiftCardTransaction {
     addValueTransactionInformation?: TransactionInformationAddValue;
     getBalanceTransactionInformation?: TransactionInformationGetBalance;
     redeemTransactionInformation?: TransactionInformationRedeem;
-    reverseTransactionInformation?: TransactionInformationReverse;
+    reverseTransactionInformation?: GCTransactionInformationReverse;
 }
 
 export interface TransactionInformationActivate {
@@ -33,7 +33,7 @@ export interface TransactionInformationRedeem {
     isCashOut: boolean;
 }
 
-export interface TransactionInformationReverse {
+export interface GCTransactionInformationReverse {
     giftCardIdentifier: string;
     identifierSource: GiftCardIdentifierSource;
     previousTransaction: string;
