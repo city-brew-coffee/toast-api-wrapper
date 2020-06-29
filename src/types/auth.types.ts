@@ -1,9 +1,21 @@
-export class AuthReturnDataforRestaurantManagementGroupClient {
-    access_token?: string;
-    expires_in?: number;
-    jti?: string;
-    namingAuthority?: string;
-    rsGuid?: string;
-    scope?: string;
-    token_type?: string;
+export interface AuthReturnDataforRestaurantManagementGroupClient {
+    '@class'?: string,
+    token: {
+        tokenType?: string,
+        scope?: string,
+        expiresIn?: number,
+        accessToken?: string,
+    },
+    status?: string
+}
+
+export interface AuthReturnDataforPartnerApiClient {
+    '@class'?: string,
+    token: {
+        tokenType?: string,
+        scope?: string,
+        expiresIn?: number,
+        accessToken?: string,
+    },
+    status?: string,
 }
