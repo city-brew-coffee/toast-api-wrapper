@@ -30,6 +30,7 @@ export interface Order extends ExternalReference {
     approvalStatus?: 'NEEDS_APPROVAL' | 'APPROVED' | 'FUTURE' | 'NOT_APPROVED';
     device?: Device;
     lastModifiedDevice?: Device;
+    curbsidePickupInfo?: CurbsidePickupInfo;
 }
 
 export interface Check extends ExternalReference {
@@ -218,4 +219,10 @@ export interface ApplicableDiscount {
 
 export interface OrderResponse {
     orders: Order[],
+}
+
+export interface CurbsidePickupInfo extends ToastReference{
+    transportColor?: string;
+    transportDescription?: string;
+    notes?: string;
 }
