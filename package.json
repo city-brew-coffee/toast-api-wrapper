@@ -1,6 +1,6 @@
 {
   "name": "@citybrewcoffee/toast-api-wrapper",
-  "version": "1.3.10",
+  "version": "1.4.0",
   "description": "NodeJS wrapper for Toast APIs",
   "scripts": {
     "build": "tsc"

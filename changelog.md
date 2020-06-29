@@ -1,3 +1,12 @@
+## 1.4.0
+- **POSSIBLE BREAKING CHANGE** Updated to Toast's new Auth credentials to /authentication/v1/authentication/login endpoint. View Toast docs for more info.
+- Converted all class objects to interfaces
+- Added getApplicableDiscountsForOrder, addCheckLevelDiscounts, addItemLevelDiscounts, addPaymentToCheck, updateTipOnPayment, and getCheckPricesForOrder in orders api.
+- Added gift card integration types.
+- added curbisde parameter to dining option and curbside into  to orders
+- changed menu visibility
+- added createdDate fileds to check and orders 
+
 ## 1.3.8
 - Added get alternate payment types method
 
