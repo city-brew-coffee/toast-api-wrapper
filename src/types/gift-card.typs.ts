@@ -41,7 +41,7 @@ export interface TransactionInformationReverse {
 }
 
 export interface GiftCardTransactionResponse {
-    transactionStatus: GiftCardTransactionStatuses;
+    transactionStatus: GiftCardTransactionStatus;
     activateResponse?: TransactionResponseActivate;
     addValueResponse?: TransactionResponseAddValue;
     getBalanceResponse?: TransactionResponseGetBalance;
@@ -72,4 +72,4 @@ export interface TransactionResponseReverse {
 
 export type GiftCardIdentifierSource = 'KEYED' | 'SCANNED' | 'SWIPED' | 'UNKNOWN';
 export type GiftCardTransactionType = 'GIFTCARD_ACTIVATE' | 'GIFTCARD_ADD_VALUE' | 'GIFTCARD_GET_BALANCE' | 'GIFTCARD_REDEEM' | 'GIFTCARD_REVERSE';
-export type GiftCardTransactionStatuses = 'ACCEPT' | 'ERROR_INVALID_TOAST_TRANSACTION_TYPE' | 'ERROR_CARD_ALREADY_ACTIVATED' | 'ERROR_CARD_NOT_ACTIVATED' | 'ERROR_CARD_INVALID' | 'ERROR_INVALID_INPUT_PROPERTIES' | 'ERROR_TRANSACTION_DOES_NOT_EXIST' | 'ERROR_INVALID_TOKEN' | 'ERROR_TRANSACTION_CANNOT_BE_REVERSED' | 'ERROR_INVALID_RESTAURANT';
+export type GiftCardTransactionStatus = 'ACCEPT' | 'ERROR_INVALID_TOAST_TRANSACTION_TYPE' | 'ERROR_CARD_ALREADY_ACTIVATED' | 'ERROR_CARD_NOT_ACTIVATED' | 'ERROR_CARD_INVALID' | 'ERROR_INVALID_INPUT_PROPERTIES' | 'ERROR_TRANSACTION_DOES_NOT_EXIST' | 'ERROR_INVALID_TOKEN' | 'ERROR_TRANSACTION_CANNOT_BE_REVERSED' | 'ERROR_INVALID_RESTAURANT';
