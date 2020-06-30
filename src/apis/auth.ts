@@ -14,7 +14,7 @@ export async function requestNewToken(toastHostname: string, clientId: string, c
 
     const options = {
         method: 'POST',
-        body: params,
+        body: JSON.stringify(params),
         headers: {
             'Content-Type': 'application/json'
         },
