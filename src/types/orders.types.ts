@@ -131,9 +131,10 @@ export interface AppliedServiceCharge extends ExternalReference {
     chargeType?: 'FIXED' | 'PERCENT' | 'OPEN';
     name?: string;
     delivery?: boolean;
+    takeout?: boolean;
     gratuity?: boolean;
     taxable?: boolean;
-    appliedTaxes?: AppliedTaxRate;
+    appliedTaxes?: AppliedTaxRate[];
     serviceChargeCalculation?: 'PRE_DISCOUNT' | 'POST_DISCOUNT';
 }
 
