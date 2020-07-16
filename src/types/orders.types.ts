@@ -45,7 +45,7 @@ export interface Check extends ExternalReference {
     appliedLoyaltyInfo?: AppliedLoyaltyInfo;
     taxExempt?: boolean;
     displayNumber?: string;
-    appliedServiceCharges?: AppliedServiceCharge;
+    appliedServiceCharges?: AppliedServiceCharge[];
     amount?: number;
     taxAmount?: number;
     totalAmount?: number;
