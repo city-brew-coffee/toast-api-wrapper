@@ -27,7 +27,7 @@ export interface MenuGroup {
     description?: string;
     image?: string;
     visibility?: Visibility;
-    itemTags?: ItemTag;
+    itemTags?: ItemTag[];
     menuGroups?: MenuGroup[];
     menuItems?: MenuItem[];
 }
@@ -35,6 +35,7 @@ export interface MenuGroup {
 export interface MenuItem {
     name?: string;
     guid?: string;
+    description?: string;
     masterId?: number;
     image?: string;
     visibility?: Visibility;
@@ -44,7 +45,7 @@ export interface MenuItem {
     isDiscountable?: boolean;
     salesCategory?: SalesCategory;
     taxInfo?: string[];
-    itemTag?: ItemTag;
+    itemTags?: ItemTag[];
     plu?: string;
     sku?: string;
     calories?: number;
