@@ -112,7 +112,7 @@ export interface Selection extends ExternalReference {
     modifiers?: Selection[];
     fulfillmentStatus?: 'NEW' | 'HOLD' | 'SENT' | 'READY';
     taxInclusion?: 'INCLUDED' | 'NOT_INCLUDED' | 'INHERITED';
-    appliedTaxRate?: AppliedTaxRate;
+    appliedTaxRate?: AppliedTaxRate[];
     diningOption?: ExternalReference;
     openPriceAmount?: number;
 }

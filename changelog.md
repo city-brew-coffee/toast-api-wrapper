@@ -1,3 +1,7 @@
+## 1.4.5
+- Fixed some bugs
+- Added get orders in bulk endpoint. More info: https://doc.toasttab.com/Ie5QH/apiOrdersGetDetailedInfoAboutMultipleOrders.html
+
 ## 1.4.0
 - **POSSIBLE BREAKING CHANGE** Updated to Toast's new Auth credentials to /authentication/v1/authentication/login endpoint. View Toast docs for more info.
 - Converted all class objects to interfaces

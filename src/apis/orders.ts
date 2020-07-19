@@ -110,7 +110,7 @@ export async function addCheckLevelDiscounts(params: FunctionParams, discounts: 
 
 
     try {
-        const response = await fetch(`https://${params.toastHostname}/orders/${orderGuid}/checks/${checkGuid}/appliedDiscounts`, options);
+        const response = await fetch(`https://${params.toastHostname}/orders/v2/orders/${orderGuid}/checks/${checkGuid}/appliedDiscounts`, options);
         return response.json();
     } catch (e) {
         throw new ToastError({
@@ -133,7 +133,7 @@ export async function addItemLevelDiscounts(params: FunctionParams, discounts: D
 
 
     try {
-        const response = await fetch(`https://${params.toastHostname}/orders/${orderGuid}/checks/${checkGuid}/selections/${selectionGuid}/appliedDiscounts`, options);
+        const response = await fetch(`https://${params.toastHostname}/orders/v2/orders/${orderGuid}/checks/${checkGuid}/selections/${selectionGuid}/appliedDiscounts`, options);
         return response.json();
     } catch (e) {
         throw new ToastError({
@@ -156,7 +156,7 @@ export async function addPaymentToCheck(params: FunctionParams, payments: Paymen
 
 
     try {
-        const response = await fetch(`https://${params.toastHostname}/orders/${orderGuid}/checks/${checkGuid}/payments`, options);
+        const response = await fetch(`https://${params.toastHostname}/orders/v2/orders/${orderGuid}/checks/${checkGuid}/payments`, options);
         return response.json();
     } catch (e) {
         throw new ToastError({
@@ -179,7 +179,7 @@ export async function updateTipOnPayment(params: FunctionParams, tipAmount: numb
 
 
     try {
-        const response = await fetch(`https://${params.toastHostname}/orders/${orderGuid}/checks/${checkGuid}/payments/${paymentGuid}`, options);
+        const response = await fetch(`https://${params.toastHostname}/orders/v2/orders/${orderGuid}/checks/${checkGuid}/payments/${paymentGuid}`, options);
         return response.json();
     } catch (e) {
         throw new ToastError({
@@ -202,13 +202,35 @@ export async function getCheckPricesForOrder(params: FunctionParams, order: Orde
 
 
     try {
-        const response = await fetch(`https://${params.toastHostname}/prices}`, options);
+        const response = await fetch(`https://${params.toastHostname}/orders/v2/prices}`, options);
         return response.json();
     } catch (e) {
         throw new ToastError({
             message: e.message,
             endpoint: 'get check prices for order',
             path: '/prices'
+        });
+    }
+}
+
+export async function getOrdersBulk(params: FunctionParams, startDate: string, endDate: string, pageSize: number, page: number): Promise<Order[]> {
+    const options = {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${params.accessToken}`,
+            'Toast-Restaurant-External-ID': `${params.restaurantGuid}`
+        },
+    }
+
+
+    try {
+        const response = await fetch(`https://${params.toastHostname}/orders/v2/ordersBulk?startDate=${startDate}&endDate=${endDate}&pageSize=${pageSize}&page=${page}}`, options);
+        return response.json();
+    } catch (e) {
+        throw new ToastError({
+            message: e.message,
+            endpoint: 'get orders in bulk',
+            path: '/ordersBulk'
         });
     }
 }
