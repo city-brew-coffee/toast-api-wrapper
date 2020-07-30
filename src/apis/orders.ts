@@ -224,7 +224,7 @@ export async function getOrdersBulk(params: FunctionParams, startDate: string, e
 
 
     try {
-        const response = await fetch(`https://${params.toastHostname}/orders/v2/ordersBulk?startDate=${startDate}&endDate=${endDate}&pageSize=${pageSize}&page=${page}}`, options);
+        const response = await fetch(`https://${params.toastHostname}/orders/v2/ordersBulk?startDate=${startDate}&endDate=${endDate}&pageSize=${pageSize}&page=${page}`, options);
         return response.json();
     } catch (e) {
         throw new ToastError({
