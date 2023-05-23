@@ -1,4 +1,4 @@
-import { FunctionParams, ToastError } from "../types/toast.types";
+import { FunctionParams, ToastError, ApiResponse } from "../types/toast.types";
 import {
   Order,
   ApplicableDiscountsRequest,
@@ -7,7 +7,7 @@ import {
   OrderResponse,
 } from "../types/orders.types";
 import { Discount } from "../types/config.types";
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
 export async function getOrders(
   params: FunctionParams,
@@ -27,9 +27,10 @@ export async function getOrders(
       `https://${params.toastHostname}/orders/v2/orders?startDate=${start}&endDate=${end}`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as string[];
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get orders",
       path: "/orders/v2/orders",
     });
@@ -54,9 +55,10 @@ export async function getOrderDetails(
       options
     );
 
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Order;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get order details",
       path: "/orders/v2/orders/{orderGuid}",
     });
@@ -66,27 +68,36 @@ export async function getOrderDetails(
 export async function addOrder(
   params: FunctionParams,
   order: Order
-): Promise<OrderResponse> {
+): Promise<ApiResponse<Order>> {
   const options = {
     method: "POST",
     headers: {
       Authorization: `Bearer ${params.accessToken}`,
       "Toast-Restaurant-External-ID": `${params.restaurantGuid}`,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(order),
   };
 
+  const response = await fetch(
+    `https://${params.toastHostname}/orders/v2/orders`,
+    options
+  );
+  const responseText = await response.text();
   try {
-    const response = await fetch(
-      `https://${params.toastHostname}/orders/v2/orders`,
-      options
-    );
-    return response.json();
-  } catch (e) {
-    throw new ToastError({
-      endpoint: "add orders",
-      path: "/orders/v2/orders",
-    });
+    const response = JSON.parse(responseText);
+    return {
+      rawResponse: responseText,
+      status: response.statusText,
+      response: JSON.parse(responseText),
+    };
+  } catch (e: any) {
+    return {
+      rawResponse: responseText,
+      status: response.statusText,
+      response: undefined,
+      error: e.toString(),
+    };
   }
 }
 
@@ -112,9 +123,10 @@ export async function getApplicableDiscountsForOrder(
       `https://${params.toastHostname}/orders/v2/applicableDiscounts`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as ApplicableDiscount;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get applicable discounts",
       path: "/orders/v2/applicableDiscounts",
     });
@@ -141,9 +153,10 @@ export async function addCheckLevelDiscounts(
       `https://${params.toastHostname}/orders/v2/orders/${orderGuid}/checks/${checkGuid}/appliedDiscounts`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Order;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "add check level discounts",
       path: "/orders/{orderGuid}/checks/{checkGuid}/appliedDiscounts",
     });
@@ -171,9 +184,10 @@ export async function addItemLevelDiscounts(
       `https://${params.toastHostname}/orders/v2/orders/${orderGuid}/checks/${checkGuid}/selections/${selectionGuid}/appliedDiscounts`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Order;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "add item level discounts",
       path: "/orders/{orderGuid}/checks/{checkGuid}/selections/{selectionGuid}/appliedDiscounts",
     });
@@ -200,9 +214,10 @@ export async function addPaymentToCheck(
       `https://${params.toastHostname}/orders/v2/orders/${orderGuid}/checks/${checkGuid}/payments`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Order;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "add payment to check",
       path: "/orders/{orderGuid}/checks/{checkGuid}/payments",
     });
@@ -230,9 +245,10 @@ export async function updateTipOnPayment(
       `https://${params.toastHostname}/orders/v2/orders/${orderGuid}/checks/${checkGuid}/payments/${paymentGuid}`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Order;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "update tip on payment",
       path: "/orders/{orderGuid}/checks/{checkGuid}/payments/{paymentGuids}",
     });
@@ -242,27 +258,36 @@ export async function updateTipOnPayment(
 export async function getCheckPricesForOrder(
   params: FunctionParams,
   order: Order
-): Promise<OrderResponse> {
+): Promise<ApiResponse<Order>> {
   const options = {
     method: "POST",
     headers: {
       Authorization: `Bearer ${params.accessToken}`,
       "Toast-Restaurant-External-ID": `${params.restaurantGuid}`,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(order),
   };
 
+  const response = await fetch(
+    `https://${params.toastHostname}/orders/v2/prices`,
+    options
+  );
+  const responseText = await response.text();
   try {
-    const response = await fetch(
-      `https://${params.toastHostname}/orders/v2/prices}`,
-      options
-    );
-    return response.json();
-  } catch (e) {
-    throw new ToastError({
-      endpoint: "get check prices for order",
-      path: "/prices",
-    });
+    const order = JSON.parse(responseText);
+    return {
+      rawResponse: responseText,
+      status: response.statusText,
+      response: order,
+    };
+  } catch (e: any) {
+    return {
+      rawResponse: responseText,
+      status: response.statusText,
+      response: undefined,
+      error: e.toString(),
+    };
   }
 }
 
@@ -286,9 +311,10 @@ export async function getOrdersBulk(
       `https://${params.toastHostname}/orders/v2/ordersBulk?startDate=${startDate}&endDate=${endDate}&pageSize=${pageSize}&page=${page}`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Order[];
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get orders in bulk",
       path: "/ordersBulk",
     });

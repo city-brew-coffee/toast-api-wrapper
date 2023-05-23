@@ -19,8 +19,9 @@ export async function getDeposits(
       options
     );
     return response.json();
-  } catch (e) {
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get deposits",
       path: "/cashmgmt/v1/discounts",
     });
@@ -45,8 +46,9 @@ export async function getCashEntries(
       options
     );
     return response.json();
-  } catch (e) {
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get cash entries",
       path: "/cashmgmt/v1/entries",
     });

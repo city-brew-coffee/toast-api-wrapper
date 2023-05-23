@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
 import {
   AuthReturnDataforRestaurantManagementGroupClient,
@@ -34,9 +34,12 @@ export async function requestNewToken(
       options
     );
 
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as
+      | AuthReturnDataforRestaurantManagementGroupClient
+      | AuthReturnDataforPartnerApiClient;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "request credentials",
       path: "/authentication/v1/authentication/login",
     });

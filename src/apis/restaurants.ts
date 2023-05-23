@@ -1,6 +1,6 @@
 import { FunctionParams, ToastError } from "../types/toast.types";
 import { RestaurantGuid, RestaurantInfo } from "../types/restaurants.types";
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
 export async function getRestaurantsInGroup(
   params: FunctionParams
@@ -18,9 +18,10 @@ export async function getRestaurantsInGroup(
       `https://${params.toastHostname}/restaurants/v1/groups/${params.managmentGroupGuid}/restaurants`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as RestaurantGuid[];
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get restaurants in group",
       path: "/restaurants/v1/groups/{managmentGroupGuid}/restaurants",
     });
@@ -43,9 +44,10 @@ export async function getRestaurantInformation(
       `https://${params.toastHostname}/restaurants/v1/restaurants/${params.restaurantGuid}`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as RestaurantInfo;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get restaurant information",
       path: "/restaurants/v1/restaurants/{restaurantGuid}",
     });

@@ -6,7 +6,7 @@ import {
   BreakType,
   AlternatePaymentType,
 } from "../types/config.types";
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
 export async function getDiscounts(
   params: FunctionParams,
@@ -25,9 +25,10 @@ export async function getDiscounts(
       `https://${params.toastHostname}/config/v2/discounts?pageSize=${pageSize}`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Discount[];
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get discounts",
       path: "/config/v2/discounts",
     });
@@ -51,9 +52,10 @@ export async function getRevenueCenters(
       `https://${params.toastHostname}/config/v2/revenueCenters?pageSize=${pageSize}`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as RevenueCenter[];
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get revenue centers",
       path: "/config/v2/revenueCenters",
     });
@@ -77,9 +79,10 @@ export async function getDiningOptions(
       `https://${params.toastHostname}/config/v2/diningOptions?pageSize=${pageSize}`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as DiningOption[];
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get dining options",
       path: "/config/v2/diningOptions",
     });
@@ -103,9 +106,10 @@ export async function getBreakTypes(
       `https://${params.toastHostname}/config/v2/breakTypes?pageSize=${pageSize}`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as BreakType[];
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get break tyes",
       path: "/config/v2/breakTypes",
     });
@@ -129,9 +133,10 @@ export async function getAlternatePaymentTypes(
       `https://${params.toastHostname}/config/v2/alternatePaymentTypes?pageSize=${pageSize}`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as AlternatePaymentType[];
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get alternate payment types",
       path: "/config/v2/alternatePaymentTypes",
     });

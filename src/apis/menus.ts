@@ -1,6 +1,6 @@
 import { FunctionParams, ToastError } from "../types/toast.types";
 import { Restaurant, MenuMetadata } from "../types/menus.types";
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
 export async function getMenu(params: FunctionParams): Promise<Restaurant> {
   const options = {
@@ -16,9 +16,10 @@ export async function getMenu(params: FunctionParams): Promise<Restaurant> {
       `https://${params.toastHostname}/menus/v2/menus`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Restaurant;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get menu",
       path: "/menus/v2/menus",
     });
@@ -40,9 +41,10 @@ export async function getMenuMetadata(
       `https://${params.toastHostname}/menus/v2/metadata`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as MenuMetadata;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get menu metadata",
       path: "/menus/v2/metadata",
     });

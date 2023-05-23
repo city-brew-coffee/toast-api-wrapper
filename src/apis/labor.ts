@@ -6,7 +6,7 @@ import {
   Shift,
   TimeEntry,
 } from "../types/labor.types";
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
 export async function getEmployees(
   params: FunctionParams
@@ -24,9 +24,10 @@ export async function getEmployees(
       `https://${params.toastHostname}/labor/v1/employees`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Employee[];
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get employees",
       path: "/labor/v1/employees",
     });
@@ -52,9 +53,10 @@ export async function createEmployee(
       `https://${params.toastHostname}/labor/v1/employees`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Employee;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "create employee",
       path: "/labor/v1/employees",
     });
@@ -78,9 +80,10 @@ export async function deleteEmployee(
       `https://${params.toastHostname}/labor/v1/employees/${employeeId}`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Employee;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "delete employee",
       path: "/labor/v1/employees/{employeeId}",
     });
@@ -107,9 +110,10 @@ export async function replaceEmployeeJobs(
       `https://${params.toastHostname}/labor/v1/employees/${employeeId}/jobs`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Employee;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "replace employee jobs",
       path: "/labor/v1/employees/{employeeId}/jobs",
     });
@@ -136,9 +140,10 @@ export async function replaceEmployeeWageOverrides(
       `https://${params.toastHostname}/labor/v1/employees/${employeeId}/wageOverrides`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Employee;
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "replace employee wage overrides",
       path: "/labor/v1/employees/{employeeId}/wageOverrides",
     });
@@ -159,9 +164,10 @@ export async function getJobs(params: FunctionParams): Promise<Job[]> {
       `https://${params.toastHostname}/labor/v1/jobs`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Job[];
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get jobs",
       path: "/labor/v1/jobs",
     });
@@ -186,9 +192,10 @@ export async function getShifts(
       `https://${params.toastHostname}/labor/v1/shifts?startDate=${startDate}&endDate=${endDate}`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as Shift[];
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get shifts",
       path: "/labor/v1/shifts",
     });
@@ -213,9 +220,10 @@ export async function getTimeEntries(
       `https://${params.toastHostname}/labor/v1/timeEntries?modifiedStartDate=${startDate}&modifiedEndDate=${endDate}`,
       options
     );
-    return response.json();
-  } catch (e) {
+    return (await response.json()) as unknown as TimeEntry[];
+  } catch (e: any) {
     throw new ToastError({
+      message: e.message,
       endpoint: "get time entries",
       path: "/labor/v1/timeEntries",
     });

@@ -14,12 +14,19 @@ export type FunctionParams = {
   managmentGroupGuid?: string;
 };
 
+export interface ApiResponse<T> {
+  rawResponse: string;
+  status: string;
+  response?: T;
+  error?: string;
+}
+
 export class ToastError extends Error {
   endpoint: string;
   timestamp: Date;
   path: string;
 
-  constructor(params: { endpoint: string; message?: string; path: string }) {
+  constructor(params: { endpoint: string; message: string; path: string }) {
     super(params.message);
     this.endpoint = params.endpoint;
     this.timestamp = new Date();
