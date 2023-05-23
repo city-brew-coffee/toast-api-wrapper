@@ -1,37 +1,46 @@
-const fetch = require('node-fetch');
+const fetch = require("node-fetch");
 
-import { AuthReturnDataforRestaurantManagementGroupClient, AuthReturnDataforPartnerApiClient } from '../types/auth.types';
-import { ToastError } from '..';
+import {
+  AuthReturnDataforRestaurantManagementGroupClient,
+  AuthReturnDataforPartnerApiClient,
+} from "../types/auth.types";
+import { ToastError } from "..";
 
+export async function requestNewToken(
+  toastHostname: string,
+  clientId: string,
+  clientSecret: string
+): Promise<
+  | AuthReturnDataforRestaurantManagementGroupClient
+  | AuthReturnDataforPartnerApiClient
+> {
+  const params = {
+    clientId: clientId,
+    clientSecret: clientSecret,
+    userAccessType: "TOAST_MACHINE_CLIENT",
+  };
 
-export async function requestNewToken(toastHostname: string, clientId: string, clientSecret: string): Promise<AuthReturnDataforRestaurantManagementGroupClient | AuthReturnDataforPartnerApiClient> {
+  const options = {
+    method: "POST",
+    body: JSON.stringify(params),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
 
-    const params = {
-        clientId: clientId,
-        clientSecret: clientSecret,
-        userAccessType: 'TOAST_MACHINE_CLIENT'
-    }
+  try {
+    const response = await fetch(
+      `https://${toastHostname}/authentication/v1/authentication/login`,
+      options
+    );
 
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(params),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    };
+    return response.json();
+  } catch (e) {
+    throw new ToastError({
+      endpoint: "request credentials",
+      path: "/authentication/v1/authentication/login",
+    });
+  }
+}
 
-    try {
-        const response = await fetch(`https://${toastHostname}/authentication/v1/authentication/login`, options);
-
-        return response.json();
-    } catch (e) {
-        throw new ToastError({
-            message: e.message,
-            endpoint: 'request credentials',
-            path: '/authentication/v1/authentication/login'
-        });
-    }
-
-};
-
-export type ToastApiAccountType = 'Restaurant-Management-Group' | 'Partner-Api'
+export type ToastApiAccountType = "Restaurant-Management-Group" | "Partner-Api";
